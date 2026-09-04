@@ -1,98 +1,156 @@
 /**
- * Menu data — prices, sizes and flavors match the live prettyeats402.com menu exactly.
- * Copy (names/descriptions) is rewritten for punch; the facts are untouched.
+ * Menu data — the single source of truth for the menu page and the home page.
+ *
+ * Transcribed from the current Pretty's Eats menu (Canva, "Pretty's Loaded Baked
+ * Potato & Loaded Rice Bowls"). Prices, sizes and flavors are exactly as printed;
+ * only spelling and capitalisation are tidied for the web.
+ *
+ * Item shape:
+ *   name, price, size?, description?
+ *   steps?   — ordered build-your-own groups: { order, label, title, options[] }
+ *   choices? — a single group of options: { label, options[] }
+ *   includes?— "comes with" list
+ *   extras?  — price modifiers: { label, price }
+ *   note?    — a short plain-language footnote
  */
-
-export const signatureExtras = [
-  { label: 'Extra protein', price: '+$5' },
-  { label: 'Extra topping', price: '+$1' },
-]
 
 export const menu = [
   {
-    id: 'rice-bowls',
-    name: 'Loaded Rice Bowls',
+    id: 'build-your-own',
+    name: 'Build Your Own',
     kicker: 'The house signature',
     blurb:
-      'A bed of seasoned rice buried under melted cheese and your protein of choice. The one we built this truck around.',
+      'Pick your base, pick your protein, then pick four toppings. One price, built exactly how you want it.',
     accent: 'red',
     items: [
       {
-        name: "Pretty's Rice Bowl",
-        price: '$12',
+        name: 'Loaded Baked Potato, Rice Bowl or Nachos',
+        price: '$15',
         description:
-          'Our signature bowl, loaded to the rim and finished with butter, cheese, sour cream, and chives.',
-        choices: {
-          label: 'Pick your protein',
-          options: ['Chicken', 'Steak', 'Shrimp'],
-        },
-        includes: ['Butter', 'Cheese', 'Sour cream', 'Chives'],
-        extras: signatureExtras,
-      },
-    ],
-  },
-  {
-    id: 'baked-potatoes',
-    name: 'Loaded Baked Potatoes',
-    kicker: 'Comfort, maxed out',
-    blurb:
-      'A hot, split-open potato that disappears under toppings. Hearty enough to be dinner, rich enough to feel like a treat.',
-    accent: 'gold',
-    items: [
-      {
-        name: "Pretty's Baked Potato",
-        price: '$12',
-        description:
-          'Oven-hot and piled high with butter, cheese, sour cream, chives, and the protein you pick.',
-        choices: {
-          label: 'Pick your protein',
-          options: ['Chicken', 'Steak', 'Shrimp'],
-        },
-        includes: ['Butter', 'Cheese', 'Sour cream', 'Chives'],
-        extras: signatureExtras,
+          'Three steps, one plate: start with a base, add a protein, then load it up with four toppings.',
+        steps: [
+          {
+            order: 'First',
+            label: 'Pick one',
+            title: "Pretty's Base",
+            options: ["Pretty's Baked Potato", "Pretty's White Rice", "Pretty's Loaded Nachos"],
+          },
+          {
+            order: 'Second',
+            label: 'Pick 1 protein',
+            title: "Pretty's Protein",
+            options: [
+              'Chili',
+              'Steak',
+              'Chicken',
+              'Black Bean',
+              'Shrimp',
+              'Pork Asada Steak',
+              'Bacon Bits',
+              'Sausage',
+            ],
+          },
+          {
+            order: 'Third',
+            label: 'Pick 4 toppings',
+            title: "Pretty's Toppings",
+            options: [
+              'Butter',
+              'Ranch',
+              'Chives',
+              'Salsa',
+              'Spicy Ranch',
+              'Crispy Onion',
+              'Broccoli',
+              'Jalapeño',
+              'Shredded Cheese',
+              'Sautéed Peppers & Onion',
+              'Nacho Cheese Dip',
+              'Sour Cream',
+            ],
+          },
+        ],
+        extras: [
+          { label: 'Each additional protein', price: '+$5' },
+          { label: 'Each additional topping', price: '+$1' },
+        ],
       },
     ],
   },
   {
     id: 'lemonades',
-    name: 'Shake-Up Lemonades',
+    name: 'Shake-Up Lemonade',
     kicker: 'Shaken to order',
-    blurb: 'Fresh-squeezed, hand-shaken, and cold enough to fix an Omaha summer.',
+    blurb: 'Hand-shaken, ice cold, and the fastest way to fix an Omaha summer.',
     accent: 'gold',
     items: [
       {
-        name: 'Regular Shake-Up',
-        price: '$6',
+        name: 'Shake-Up Lemonade',
+        price: '$8',
         size: '24 oz',
-        description: 'Hand-shaken lemonade over ice.',
-        choices: { label: 'Flavors', options: ['Classic', 'Cherry', 'Strawberry'] },
+        description: 'Shaken to order over ice.',
+        choices: {
+          label: 'Flavors',
+          options: [
+            'Classic',
+            'Cherry',
+            'Strawberry',
+            'Mango',
+            'Pineapple',
+            'Blue Raspberry',
+            'Grape',
+          ],
+        },
+        extras: [{ label: 'Add boba', price: '+$3' }],
       },
       {
-        name: 'Large Shake-Up',
-        price: '$8',
+        name: 'Large Shake-Up Lemonade',
+        price: '$10',
         size: '32 oz',
         description: 'Same shake-up, more of it.',
-        choices: { label: 'Flavors', options: ['Classic', 'Cherry', 'Strawberry'] },
+        choices: {
+          label: 'Flavors',
+          options: [
+            'Classic',
+            'Cherry',
+            'Strawberry',
+            'Mango',
+            'Pineapple',
+            'Blue Raspberry',
+            'Grape',
+          ],
+        },
+        extras: [{ label: 'Add boba', price: '+$3' }],
       },
     ],
   },
   {
-    id: 'twisters',
-    name: "Pretty's Twisters",
-    kicker: 'Fan favorite',
-    blurb: 'Thick, blended, and twisted with the candy of your choice.',
-    accent: 'red',
+    id: 'snow-cones',
+    name: 'Snow Cones',
+    kicker: 'Ten flavors deep',
+    blurb: 'Fluffy shaved ice, drenched in whichever flavor you point at.',
+    accent: 'teal',
     items: [
       {
-        name: "Pretty's Twister",
-        price: '$6',
+        name: 'Snow Cone',
+        price: '$8',
         size: '24 oz',
-        description: 'Comes with one mix-in folded all the way through.',
+        description: 'Shaved ice packed and poured over.',
         choices: {
-          label: 'Mix-ins',
-          options: ['Oreo', "Reese's Peanut Butter Cup", 'Kit-Kat Krumble'],
+          label: 'Flavors',
+          options: [
+            'Cherry',
+            'Strawberry',
+            'Pineapple',
+            'Orange',
+            'Grape',
+            'Lemon-Lime',
+            'Blue Raspberry',
+            'Fruit Punch',
+            'Sassy Apple',
+            'Tiger Blood',
+          ],
         },
-        extras: [{ label: 'Additional mix-in', price: '+$2' }],
       },
     ],
   },
@@ -105,13 +163,14 @@ export const menu = [
     items: [
       {
         name: 'Smoothie',
-        price: '$6',
+        price: '$8',
         size: '24 oz',
         description: 'Blended fresh to order.',
         choices: {
           label: 'Flavors',
-          options: ['Wildberry', 'Strawberry', 'Strawberry Banana'],
+          options: ['Wildberry', 'Strawberry', 'Strawberry Banana', 'Mango', 'Peach'],
         },
+        note: 'Whipped topping available.',
       },
     ],
   },
@@ -124,29 +183,35 @@ export const menu = [
     items: [
       {
         name: 'Milkshake',
-        price: '$6',
+        price: '$8',
         size: '24 oz',
         description: 'Hand-spun, spoon-thick.',
-        choices: { label: 'Flavors', options: ['Chocolate', 'Vanilla', 'Strawberry'] },
+        choices: {
+          label: 'Flavors',
+          options: ['Vanilla', 'Chocolate', 'Strawberry', 'Butterscotch'],
+        },
+        note: 'Whipped topping available.',
       },
     ],
   },
   {
-    id: 'snow-cones',
-    name: 'Snow Cones',
-    kicker: 'For the kids (and you)',
-    blurb: 'Fluffy shaved ice, drenched in flavor.',
-    accent: 'teal',
+    id: 'floats-and-water',
+    name: 'Floats & Water',
+    kicker: 'Cold and simple',
+    blurb: 'The old-school one, and something to wash it all down.',
+    accent: 'gold',
     items: [
       {
-        name: 'Snow Cone',
-        price: '$6',
+        name: 'A&W Root Beer Float',
+        price: '$8',
         size: '24 oz',
-        description: 'Shaved ice packed and poured over.',
-        choices: {
-          label: 'Flavors',
-          options: ['Cherry', 'Lemon-Lime', 'Strawberry'],
-        },
+        description: 'Root beer and ice cream, the way it has always been done.',
+      },
+      {
+        name: 'Bottled Water',
+        price: '$3',
+        size: '20 oz',
+        description: 'Ice cold.',
       },
     ],
   },

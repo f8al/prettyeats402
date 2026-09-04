@@ -6,14 +6,17 @@ const props = defineProps({
 })
 
 const hasDetails = computed(() => {
-  const { choices, includes, extras } = props.item
-  return Boolean(choices || includes?.length || extras?.length)
+  const { choices, includes, extras, steps, note } = props.item
+  return Boolean(choices || includes?.length || extras?.length || steps?.length || note)
 })
 </script>
 
 <template>
   <article class="item">
-    <div class="item-inner" :class="{ 'item-inner--solo': !hasDetails }">
+    <div
+      class="item-inner"
+      :class="{ 'item-inner--solo': !hasDetails, 'item-inner--steps': item.steps?.length }"
+    >
       <div class="item-main">
         <div class="item-head">
           <h3 class="item-name">{{ item.name }}</h3>
@@ -27,6 +30,21 @@ const hasDetails = computed(() => {
       </div>
 
       <div v-if="hasDetails" class="item-side">
+        <ol v-if="item.steps?.length" class="steps" role="list">
+          <li v-for="step in item.steps" :key="step.order" class="step">
+            <p class="step-head">
+              <span class="step-order">{{ step.order }}</span>
+              <span class="step-label">{{ step.label }}</span>
+            </p>
+            <p class="step-title">{{ step.title }}</p>
+            <ul class="options" role="list">
+              <li v-for="option in step.options" :key="option" class="option">
+                {{ option }}
+              </li>
+            </ul>
+          </li>
+        </ol>
+
         <div v-if="item.choices" class="detail">
           <p class="detail-label">{{ item.choices.label }}</p>
           <ul class="options" role="list">
@@ -49,6 +67,8 @@ const hasDetails = computed(() => {
             <span class="extra-price">{{ extra.price }}</span>
           </li>
         </ul>
+
+        <p v-if="item.note" class="item-note">{{ item.note }}</p>
       </div>
     </div>
   </article>
@@ -184,6 +204,55 @@ const hasDetails = computed(() => {
   color: var(--color-text-mute);
 }
 
+/* ---- Build-your-own steps ---- */
+
+.steps {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.step {
+  position: relative;
+  padding-left: var(--space-4);
+  border-left: 2px solid var(--accent, var(--color-red));
+}
+
+.step-head {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-bottom: var(--space-1);
+}
+
+.step-order {
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  letter-spacing: 0.06em;
+  color: var(--accent, var(--color-red));
+}
+
+.step-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-text-mute);
+}
+
+.step-title {
+  margin-bottom: var(--space-2);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.item-note {
+  font-size: 0.82rem;
+  color: var(--color-text-mute);
+  font-style: italic;
+}
+
 .options,
 .includes {
   display: flex;
@@ -261,6 +330,29 @@ const hasDetails = computed(() => {
     padding-left: var(--space-5);
     border-top: 0;
     border-left: 1px solid var(--color-border);
+  }
+
+  /*
+   * A build-your-own item carries three option groups — far too tall for the
+   * narrow side column, which would strand a column of dead space beside it.
+   * Let it keep the full width and run the steps side by side instead.
+   */
+  .item-inner--steps {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-5);
+  }
+
+  .item-inner--steps .item-side {
+    padding-left: 0;
+    padding-top: var(--space-4);
+    border-left: 0;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .item-inner--steps .steps {
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    gap: var(--space-5);
+    align-items: start;
   }
 }
 </style>

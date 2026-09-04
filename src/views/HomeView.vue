@@ -29,7 +29,7 @@ const startingPrice = (items = []) => {
 }
 
 /* ---- The headliners, in the order we want them shown ---- */
-const headlinerIds = ['rice-bowls', 'baked-potatoes', 'lemonades', 'twisters']
+const headlinerIds = ['build-your-own', 'lemonades', 'snow-cones', 'milkshakes']
 const picked = headlinerIds.map((id) => menu.find((c) => c.id === id)).filter(Boolean)
 
 const featured = (picked.length ? picked : menu.slice(0, 4)).map((category) => ({
@@ -67,8 +67,8 @@ const tickerItems = menu.map((category) => category.name)
             </h1>
 
             <p class="hero-lede">
-              Rice bowls and baked potatoes loaded past the rim. Lemonade squeezed and shaken to
-              order. All of it out of a truck rolling around Omaha.
+              Rice bowls, baked potatoes and nachos loaded past the rim. Lemonade shaken to order.
+              All of it out of a truck rolling around Omaha.
             </p>
 
             <div class="hero-cta">
@@ -126,8 +126,8 @@ const tickerItems = menu.map((category) => category.name)
           <p class="eyebrow">Off the truck</p>
           <h2 id="known-title" class="section-title">What we&rsquo;re known for</h2>
           <p class="section-lede">
-            Two signatures do the heavy lifting. The cold half of the menu is there to keep you
-            standing in an Omaha July.
+            One plate, built your way &mdash; base, protein, four toppings. The cold half of the
+            menu is there to keep you standing in an Omaha July.
           </p>
         </header>
 

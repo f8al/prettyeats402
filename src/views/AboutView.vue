@@ -94,11 +94,12 @@ const values = [
               menu we actually eat ourselves.
             </p>
             <p class="reveal">
-              What comes out of that window is loaded rice bowls and loaded baked potatoes, done our
-              way. Chicken, steak, or shrimp. Butter, cheese, sour cream, chives. Hearty, soulful,
-              and full of love — and that last part is easy to mean when it’s your own family in the
-              truck with you. Then the cold side to sit next to it: shake-up lemonades, smoothies,
-              milkshakes, snow cones, Twisters.
+              What comes out of that window is loaded rice bowls, loaded baked potatoes and loaded
+              nachos, built the way you want them. Steak, chicken, shrimp, chili, sausage, pork
+              asada, black bean. Four toppings on the house. Hearty, soulful, and full of love —
+              and that last part is easy to mean when it’s your own family in the truck with you.
+              Then the cold side to sit next to it: shake-up lemonades, smoothies, milkshakes, snow
+              cones, root beer floats.
             </p>
             <p class="reveal">
               Every meal we make is fresh, bold, and meant to bring people together. That isn’t a

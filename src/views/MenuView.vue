@@ -27,9 +27,9 @@ const activeId = ref(menu[0].id)
 let observer = null
 
 /**
- * The router runs on hash history, so a bare "#rice-bowls" href would be read
+ * The router runs on hash history, so a bare "#build-your-own" href would be read
  * as a route and dump the visitor on the 404 page. Links point at the real
- * deep link ("#/menu#rice-bowls") for new-tab / copy-link, and clicks are
+ * deep link ("#/menu#build-your-own") for new-tab / copy-link, and clicks are
  * handled here so the jump honours scroll-margin-top under the fixed header.
  */
 const hrefFor = (id) => router.resolve({ name: 'menu', hash: `#${id}` }).href
