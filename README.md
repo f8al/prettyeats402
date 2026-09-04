@@ -32,17 +32,27 @@ Deployment is automatic. `.github/workflows/deploy.yml` builds the site and publ
 
 The site then goes live at `https://<user>.github.io/<repo>/`.
 
-### Using the custom domain (www.prettyeats402.com)
+### The custom domain (prettyeats402.com) — already configured
 
-1. Create a file named `CNAME` in `public/` containing exactly:
-   ```
-   www.prettyeats402.com
-   ```
-2. At the domain registrar, point DNS at GitHub Pages:
-   - `CNAME` record: `www` → `<user>.github.io`
-   - For the apex domain (`prettyeats402.com`), add `A` records to GitHub's IPs:
-     `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`
-3. In **Settings → Pages → Custom domain**, enter `www.prettyeats402.com` and enable **Enforce HTTPS**.
+The apex `prettyeats402.com` is the canonical domain; `www` redirects to it.
+`public/CNAME` pins it so the setting survives every redeploy — don't delete that file.
+
+DNS at the registrar:
+
+| Type | Name | Value |
+| --- | --- | --- |
+| A | `@` | `185.199.108.153` |
+| A | `@` | `185.199.109.153` |
+| A | `@` | `185.199.110.153` |
+| A | `@` | `185.199.111.153` |
+| CNAME | `www` | `f8al.github.io` |
+
+After DNS is in place, GitHub provisions a Let's Encrypt certificate for both names.
+While that's in flight, `https://` can fail the TLS handshake — that's expected and
+clears on its own. Once it completes, tick **Enforce HTTPS** in **Settings → Pages**.
+
+If the domain ever misbehaves after the certificate has issued, removing and re-adding
+it under **Settings → Pages → Custom domain** re-triggers provisioning cleanly.
 
 No `vite.config.js` change is needed for any of this — the build uses a relative `base` and the router uses hash history, so the same build works from a user site, a project subpath, or a custom domain.
 
