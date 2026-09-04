@@ -114,19 +114,42 @@ onUnmounted(() => {
   position: fixed;
   inset: 0 0 auto 0;
   z-index: 100;
-  transition: background-color 0.3s ease, backdrop-filter 0.3s ease, border-color 0.3s ease;
+  transition: border-color 0.3s ease;
   border-bottom: 1px solid transparent;
+}
+
+/*
+ * The blur lives on a pseudo-element rather than on .header itself. An element
+ * with backdrop-filter becomes the containing block for its position: fixed
+ * descendants — with it on .header, the mobile drawer inside resolved its
+ * inset against the 72px header instead of the viewport and collapsed to a
+ * sliver. Keeping .header filter-free keeps the drawer anchored to the screen.
+ */
+.header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 10, 12, 0.85);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.header.is-scrolled::before,
+.header.is-open::before {
+  opacity: 1;
 }
 
 .header.is-scrolled,
 .header.is-open {
-  background: rgba(10, 10, 12, 0.85);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
   border-bottom-color: var(--color-border);
 }
 
 .header-inner {
+  position: relative;
+  z-index: 1;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -250,13 +273,23 @@ onUnmounted(() => {
 
 .mobile-nav {
   position: fixed;
-  inset: 72px 0 0 0;
+  top: 72px;
+  left: 0;
+  right: 0;
+  /* dvh tracks the shrinking viewport as iOS shows/hides its browser bars,
+     so the drawer is never cut off behind them. vh is the fallback. */
+  height: calc(100vh - 72px);
+  height: calc(100dvh - 72px);
   background: var(--color-bg);
-  padding: var(--space-6) var(--container-pad) var(--space-7);
+  padding: var(--space-6) var(--container-pad)
+    calc(var(--space-7) + env(safe-area-inset-bottom, 0px));
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  gap: var(--space-6);
   overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
 }
 
 .mobile-nav::before {
