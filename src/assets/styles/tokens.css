@@ -1,0 +1,61 @@
+:root {
+  /* ---- Brand color: black + neon red + chrome, lifted from the real truck logo ---- */
+  --color-bg: #0a0a0c;
+  --color-bg-soft: #131316;
+  --color-surface: #1a1a1e;
+  --color-surface-2: #222226;
+  --color-border: rgba(255, 255, 255, 0.09);
+  --color-border-strong: rgba(255, 255, 255, 0.16);
+
+  --color-text: #f6f2ec;
+  --color-text-dim: #bdb8b0;
+  --color-text-mute: #8b877f;
+
+  --color-red: #ff2340;
+  --color-red-bright: #ff3b56;
+  --color-red-deep: #c8102e;
+  --color-red-soft: rgba(255, 35, 64, 0.14);
+
+  --color-gold: #ffb020;
+  --color-gold-soft: rgba(255, 176, 32, 0.14);
+
+  --color-teal: #2fd8c4;
+  --color-teal-soft: rgba(47, 216, 196, 0.14);
+
+  --gradient-flame: linear-gradient(135deg, var(--color-red) 0%, var(--color-gold) 100%);
+  --gradient-fade: linear-gradient(180deg, rgba(10, 10, 12, 0) 0%, #0a0a0c 100%);
+
+  /* ---- Type ---- */
+  --font-display: 'Anton', 'Arial Narrow', sans-serif;
+  --font-body: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  /* ---- Space (4px base) ---- */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+  --space-9: 6rem;
+  --space-10: 8rem;
+
+  /* ---- Shape ---- */
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 26px;
+  --radius-pill: 999px;
+
+  /* ---- Shadow / glow ---- */
+  --shadow-soft: 0 10px 30px -12px rgba(0, 0, 0, 0.55);
+  --shadow-lift: 0 20px 45px -18px rgba(0, 0, 0, 0.65);
+  --glow-red: 0 0 0 1px rgba(255, 35, 64, 0.4), 0 8px 30px -6px rgba(255, 35, 64, 0.45);
+  --glow-gold: 0 8px 24px -6px rgba(255, 176, 32, 0.5);
+
+  /* ---- Layout ---- */
+  --container-width: 1240px;
+  --container-pad: clamp(1.25rem, 4vw, 3rem);
+
+  color-scheme: dark;
+}
