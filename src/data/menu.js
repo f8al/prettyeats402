@@ -8,11 +8,24 @@
  * Item shape:
  *   name, price, size?, description?
  *   steps?   — ordered build-your-own groups: { order, label, title, options[] }
- *   choices? — a single group of options: { label, options[] }
+ *   choices? — one option group { label, options[] }, or an array of them
  *   includes?— "comes with" list
  *   extras?  — price modifiers: { label, price }
  *   note?    — a short plain-language footnote
  */
+
+/** Shared between both lemonade sizes — edit once, both update. */
+const LEMONADE_FLAVORS = [
+  'Classic',
+  'Cherry',
+  'Strawberry',
+  'Mango',
+  'Pineapple',
+  'Blue Raspberry',
+  'Grape',
+]
+
+const BOBA_FLAVORS = ['Strawberry', 'Mango', 'Peach', 'Pineapple']
 
 export const menu = [
   {
@@ -89,18 +102,10 @@ export const menu = [
         price: '$8',
         size: '24 oz',
         description: 'Shaken to order over ice.',
-        choices: {
-          label: 'Flavors',
-          options: [
-            'Classic',
-            'Cherry',
-            'Strawberry',
-            'Mango',
-            'Pineapple',
-            'Blue Raspberry',
-            'Grape',
-          ],
-        },
+        choices: [
+          { label: 'Flavors', options: LEMONADE_FLAVORS },
+          { label: 'Boba flavors', options: BOBA_FLAVORS },
+        ],
         extras: [{ label: 'Add boba', price: '+$3' }],
       },
       {
@@ -108,18 +113,10 @@ export const menu = [
         price: '$10',
         size: '32 oz',
         description: 'Same shake-up, more of it.',
-        choices: {
-          label: 'Flavors',
-          options: [
-            'Classic',
-            'Cherry',
-            'Strawberry',
-            'Mango',
-            'Pineapple',
-            'Blue Raspberry',
-            'Grape',
-          ],
-        },
+        choices: [
+          { label: 'Flavors', options: LEMONADE_FLAVORS },
+          { label: 'Boba flavors', options: BOBA_FLAVORS },
+        ],
         extras: [{ label: 'Add boba', price: '+$3' }],
       },
     ],

@@ -5,9 +5,18 @@ const props = defineProps({
   item: { type: Object, required: true },
 })
 
+/** `choices` may be one group or several — normalise so the template has one shape. */
+const choiceGroups = computed(() => {
+  const { choices } = props.item
+  if (!choices) return []
+  return Array.isArray(choices) ? choices : [choices]
+})
+
 const hasDetails = computed(() => {
-  const { choices, includes, extras, steps, note } = props.item
-  return Boolean(choices || includes?.length || extras?.length || steps?.length || note)
+  const { includes, extras, steps, note } = props.item
+  return Boolean(
+    choiceGroups.value.length || includes?.length || extras?.length || steps?.length || note,
+  )
 })
 </script>
 
@@ -45,10 +54,10 @@ const hasDetails = computed(() => {
           </li>
         </ol>
 
-        <div v-if="item.choices" class="detail">
-          <p class="detail-label">{{ item.choices.label }}</p>
+        <div v-for="group in choiceGroups" :key="group.label" class="detail">
+          <p class="detail-label">{{ group.label }}</p>
           <ul class="options" role="list">
-            <li v-for="option in item.choices.options" :key="option" class="option">
+            <li v-for="option in group.options" :key="option" class="option">
               {{ option }}
             </li>
           </ul>
