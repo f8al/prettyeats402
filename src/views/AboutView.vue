@@ -65,7 +65,7 @@ const values = [
             loading="eager"
             decoding="async"
             fetchpriority="high"
-            alt="The Pretty’s Eats family — five of them arm in arm — in front of their white food truck: two women, two men and a young boy, with the owner in a red shirt and a black apron reading FRESH standing in the middle."
+            alt="The Pretty’s Eats family — five of them arm in arm — in front of their white food truck: two women, two men and a young boy, with Shafeeq in a red shirt and a black apron reading FRESH standing in the middle."
           />
           <figcaption class="hero-badge">
             <span class="hero-badge-dot" aria-hidden="true"></span>
@@ -117,7 +117,7 @@ const values = [
             height="1422"
             loading="lazy"
             decoding="async"
-            alt="The owner of Pretty’s Eats mid-sentence outside the truck in a red shirt and black apron, the round neon Pretty’s Eats eye-and-fork logo painted on the truck behind him."
+            alt="Shafeeq mid-sentence outside the truck in a red shirt and black apron, the round neon Pretty’s Eats eye-and-fork logo painted on the truck behind him."
           />
           <figcaption>Same face at the window every time you come back.</figcaption>
         </figure>
@@ -164,19 +164,19 @@ const values = [
             height="1049"
             loading="lazy"
             decoding="async"
-            alt="The owner of Pretty’s Eats standing with his arms crossed, wearing a red shirt and a black apron."
+            alt="Shafeeq, the owner of Pretty’s Eats, standing with his arms crossed, wearing a red shirt and a black apron."
           />
           <figcaption class="owner-caption">Hustle, heat, and straight-up flavor.</figcaption>
         </figure>
 
         <div class="owner-copy">
           <p class="eyebrow reveal">The one in charge</p>
-          <h2 class="owner-title reveal">You’ll know him by the red shirt</h2>
+          <h2 class="owner-title reveal">Meet Shafeeq</h2>
           <div class="prose">
             <p class="reveal">
-              Red shirt, black apron, arms folded, truck behind him. He’s in that window six days a
-              week — and he calls this the most based food truck in Omaha. Not as a joke. As a
-              standard he has to cook up to every single service.
+              Red shirt, black apron, arms folded, truck behind him — you’ll know him on sight.
+              Shafeeq is in that window six days a week, and he calls this the most based food truck
+              in Omaha. Not as a joke. As a standard he has to cook up to every single service.
             </p>
             <p class="reveal">
               Hustle, heat, and straight-up flavor. That’s the promise, and it’s a short one on
