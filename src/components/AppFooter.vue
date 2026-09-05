@@ -1,5 +1,5 @@
 <script setup>
-import { site, socials, hours, navLinks } from '../data/site'
+import { site, socials, navLinks } from '../data/site'
 import logo from '../assets/images/logo.webp'
 import SocialIcon from './SocialIcon.vue'
 
@@ -43,13 +43,6 @@ const year = new Date().getFullYear()
         <p class="footer-link is-static">{{ site.location }}</p>
       </div>
 
-      <div class="footer-col">
-        <h2 class="footer-title">Hours</h2>
-        <p v-for="h in hours" :key="h.days" class="footer-hours">
-          <span>{{ h.days }}</span>
-          <span :class="{ 'is-closed': !h.open }">{{ h.time }}</span>
-        </p>
-      </div>
     </div>
 
     <div class="container footer-bottom">
@@ -152,23 +145,6 @@ const year = new Date().getFullYear()
   transform: translateX(3px);
 }
 
-.footer-hours {
-  display: flex;
-  flex-direction: column;
-  padding-block: var(--space-2);
-  font-size: 0.9rem;
-  color: var(--color-text-dim);
-}
-
-.footer-hours span:first-child {
-  color: var(--color-text);
-  font-weight: 600;
-}
-
-.is-closed {
-  color: var(--color-red);
-}
-
 .footer-bottom {
   display: flex;
   flex-direction: column;
@@ -182,7 +158,7 @@ const year = new Date().getFullYear()
 
 @media (min-width: 700px) {
   .footer-grid {
-    grid-template-columns: 1.4fr 1fr 1fr 1fr;
+    grid-template-columns: 1.6fr 1fr 1fr;
     gap: var(--space-6);
   }
 

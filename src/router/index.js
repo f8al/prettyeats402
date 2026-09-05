@@ -23,7 +23,7 @@ const routes = [
     path: '/contact',
     name: 'contact',
     component: () => import('../views/ContactView.vue'),
-    meta: { title: "Contact & Hours | Pretty's Eats" },
+    meta: { title: "Contact | Pretty's Eats" },
   },
   {
     path: '/:pathMatch(.*)*',

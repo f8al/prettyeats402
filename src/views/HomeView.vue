@@ -1,5 +1,5 @@
 <script setup>
-import { site, socials, hours } from '../data/site'
+import { site, socials } from '../data/site'
 import { menu } from '../data/menu'
 import SocialIcon from '../components/SocialIcon.vue'
 import ownerPortrait from '../assets/images/owner-portrait.webp'
@@ -199,30 +199,31 @@ const tickerItems = menu.map((category) => category.name)
       </div>
     </section>
 
-    <!-- ============ HOURS / FIND US ============ -->
+    <!-- ============ FIND US ============ -->
     <section class="section find" aria-labelledby="find-title">
       <div class="container">
         <header class="section-head">
-          <p class="eyebrow">Hours &amp; where we&rsquo;re at</p>
+          <p class="eyebrow">Where we&rsquo;re at</p>
           <h2 id="find-title" class="section-title">Catch the truck</h2>
           <p class="section-lede">
-            The corner changes. The hours don&rsquo;t. Follow along on socials so you always know
-            where to find us.
+            The corner changes. Follow along on socials so you always know where to find us, or
+            call and we&rsquo;ll tell you.
           </p>
         </header>
 
         <div class="find-grid">
           <div class="card find-card">
             <h3 class="find-head">
-              <SocialIcon name="clock" :size="18" />
-              Hours
+              <SocialIcon name="phone" :size="18" />
+              Order ahead
             </h3>
-            <ul class="hours-list" role="list">
-              <li v-for="row in hours" :key="row.days" class="hours-row" :class="{ 'is-closed': !row.open }">
-                <span class="hours-days">{{ row.days }}</span>
-                <span class="hours-time">{{ row.time }}</span>
-              </li>
-            </ul>
+            <p class="find-note">
+              Call the truck and we&rsquo;ll have it ready, or walk up and order at the window.
+            </p>
+            <a :href="site.phoneHref" class="btn btn-primary btn-sm find-btn">
+              <SocialIcon name="phone" :size="16" />
+              {{ site.phone }}
+            </a>
             <RouterLink to="/contact" class="btn btn-ghost btn-sm find-btn">
               Get in touch
               <SocialIcon name="arrow" :size="16" />
@@ -763,39 +764,11 @@ const tickerItems = menu.map((category) => category.name)
   color: var(--color-gold);
 }
 
-.hours-list {
-  margin-top: var(--space-4);
-}
 
-.hours-row {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: var(--space-1) var(--space-3);
-  padding-block: var(--space-3);
-  border-bottom: 1px solid var(--color-border);
-  font-size: 0.9rem;
-}
 
-.hours-row:last-child {
-  border-bottom: none;
-}
 
-.hours-days {
-  color: var(--color-text-dim);
-}
 
-.hours-time {
-  margin-left: auto;
-  font-weight: 700;
-  text-align: right;
-}
 
-.hours-row.is-closed .hours-time {
-  color: var(--color-text-mute);
-  font-weight: 600;
-}
 
 .find-btn {
   align-self: flex-start;
@@ -1028,9 +1001,6 @@ const tickerItems = menu.map((category) => category.name)
     padding: var(--space-6);
   }
 
-  .hours-row {
-    font-size: 0.95rem;
-  }
 }
 
 /* =====================================================

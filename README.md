@@ -64,7 +64,7 @@ Almost everything the owner needs to change lives in two plain-JavaScript files 
 
 | What | File |
 | --- | --- |
-| Phone, email, tagline, city, hours, social links, nav labels | `src/data/site.js` |
+| Phone, email, tagline, city, social links, nav labels | `src/data/site.js` |
 | The full menu — categories, items, prices, sizes, flavors, extras | `src/data/menu.js` |
 
 **Changing a price** is a one-line edit in `src/data/menu.js`; it updates the menu page and the home page at once. Commit and push, and the live site rebuilds itself in about a minute.

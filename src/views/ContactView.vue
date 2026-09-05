@@ -1,99 +1,7 @@
 <script setup>
-import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
-import { hours, site, socials } from '../data/site'
+import { site, socials } from '../data/site'
 import SocialIcon from '../components/SocialIcon.vue'
 import ContactForm from '../components/contact/ContactForm.vue'
-
-const DAY_NAMES = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
-
-/** "HH:MM" (24h) -> minutes from midnight. */
-function toMinutes(value) {
-  const [h, m] = String(value).split(':')
-  return Number(h) * 60 + Number(m || 0)
-}
-
-/**
- * Both lookups below are derived from the `hours` table in src/data/site.js, so
- * editing hours there is enough — nothing here needs to be kept in sync by hand.
- *
- * WINDOWS[day]   -> [openMinutes, closeMinutes] or null when closed
- * ROW_FOR_DAY[day] -> index of the `hours` row that covers that day
- */
-const WINDOWS = Array(7).fill(null)
-const ROW_FOR_DAY = Array(7).fill(-1)
-
-hours.forEach((row, index) => {
-  for (const day of row.weekdays ?? []) {
-    ROW_FOR_DAY[day] = index
-    if (row.open && row.opens && row.closes) {
-      WINDOWS[day] = [toMinutes(row.opens), toMinutes(row.closes)]
-    }
-  }
-})
-
-const now = ref(new Date())
-let timer
-
-onMounted(() => {
-  timer = window.setInterval(() => {
-    now.value = new Date()
-  }, 60000)
-})
-
-onBeforeUnmount(() => {
-  window.clearInterval(timer)
-})
-
-/** Minutes from midnight -> "7:00 PM". */
-function formatTime(totalMinutes) {
-  const hour = Math.floor(totalMinutes / 60)
-  const minute = totalMinutes % 60
-  const suffix = hour >= 12 ? 'PM' : 'AM'
-  const twelve = hour % 12 === 0 ? 12 : hour % 12
-  return `${twelve}:${String(minute).padStart(2, '0')} ${suffix}`
-}
-
-/** The next day with a serving window, described from `fromDay`. */
-function nextOpening(fromDay) {
-  for (let step = 1; step <= 7; step += 1) {
-    const day = (fromDay + step) % 7
-    if (WINDOWS[day]) {
-      return {
-        when: step === 1 ? 'tomorrow' : DAY_NAMES[day],
-        at: formatTime(WINDOWS[day][0]),
-      }
-    }
-  }
-  return null
-}
-
-const todayRow = computed(() => ROW_FOR_DAY[now.value.getDay()])
-
-const status = computed(() => {
-  const date = now.value
-  const day = date.getDay()
-  const minutes = date.getHours() * 60 + date.getMinutes()
-  const window_ = WINDOWS[day]
-  const next = nextOpening(day)
-
-  const backSoon = next ? `Back ${next.when} at ${next.at}.` : ''
-
-  if (!window_) {
-    return { open: false, label: 'Closed today', detail: backSoon }
-  }
-
-  const [start, end] = window_
-
-  if (minutes < start) {
-    return { open: false, label: 'Not open yet', detail: `Window opens at ${formatTime(start)}.` }
-  }
-
-  if (minutes >= end) {
-    return { open: false, label: 'Closed for the day', detail: backSoon }
-  }
-
-  return { open: true, label: 'Open right now', detail: `Serving until ${formatTime(end)}.` }
-})
 
 const instagram = socials.find((s) => s.icon === 'instagram') ?? socials[0]
 
@@ -170,7 +78,7 @@ const reachCards = [
       </div>
     </section>
 
-    <!-- ---------- Form + schedule ---------- -->
+    <!-- ---------- Form + details ---------- -->
     <section class="section body">
       <div class="container body-grid">
         <div class="body-main">
@@ -182,39 +90,6 @@ const reachCards = [
         </div>
 
         <aside class="body-side">
-          <!-- Hours -->
-          <div class="card panel">
-            <p class="eyebrow">Our schedule</p>
-            <h2 class="block-title panel-title">Serving you daily</h2>
-
-            <p class="status" :class="status.open ? 'is-open' : 'is-shut'">
-              <span class="status-dot" :class="{ 'is-live': status.open }" aria-hidden="true"></span>
-              <span class="status-label">{{ status.label }}</span>
-              <span class="status-detail">{{ status.detail }}</span>
-            </p>
-
-            <ul class="hours-list">
-              <li
-                v-for="(row, i) in hours"
-                :key="row.days"
-                class="hours-row"
-                :class="{ 'is-today': i === todayRow }"
-              >
-                <span class="hours-days">
-                  {{ row.days }}
-                  <span v-if="i === todayRow" class="today-tag">Today</span>
-                </span>
-                <span class="hours-time" :class="{ 'is-closed': !row.open }">{{ row.time }}</span>
-              </li>
-            </ul>
-
-            <p class="panel-foot">
-              <SocialIcon name="clock" :size="15" />
-              Status is worked out from your device's clock. The truck moves around Omaha, so check
-              the socials before you roll up.
-            </p>
-          </div>
-
           <!-- Good to know -->
           <div class="card panel">
             <h2 class="block-title panel-title">Good to know</h2>
@@ -426,138 +301,25 @@ const reachCards = [
   font-size: clamp(1.35rem, 5.5vw, 1.6rem);
 }
 
-/* ---------- Hours ---------- */
+/* ---------- Side panels ---------- */
 
-.status {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  gap: var(--space-1);
-  margin-top: var(--space-4);
-  padding: var(--space-3) var(--space-4);
-  border-radius: var(--radius-md);
-  border: 1px solid var(--color-border);
-  background: var(--color-surface-2);
-}
 
-.status.is-open {
-  border-color: rgba(47, 216, 196, 0.4);
-  background: var(--color-teal-soft);
-}
 
-.status.is-shut {
-  border-color: rgba(255, 35, 64, 0.32);
-  background: var(--color-red-soft);
-}
 
-.status-dot {
-  width: 9px;
-  height: 9px;
-  border-radius: var(--radius-pill);
-  background: var(--color-red);
-  grid-column: 1;
-  grid-row: 1;
-  align-self: center;
-  margin-left: 1px;
-}
 
-.status-dot.is-live {
-  background: var(--color-teal);
-  animation: pulse 2.2s ease-in-out infinite;
-}
 
-.status-label {
-  grid-column: 2;
-  grid-row: 1;
-  padding-left: var(--space-3);
-  font-family: var(--font-display);
-  font-size: 1.05rem;
-  text-transform: uppercase;
-  letter-spacing: 0.03em;
-}
 
-.status-detail {
-  grid-column: 1 / -1;
-  grid-row: 2;
-  font-size: 0.88rem;
-  color: var(--color-text-dim);
-}
 
-.hours-list {
-  margin-top: var(--space-4);
-  border-top: 1px solid var(--color-border);
-}
 
-.hours-row {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: var(--space-2);
-  padding: var(--space-3) 0;
-  border-bottom: 1px solid var(--color-border);
-}
 
-.hours-row:last-child {
-  border-bottom: none;
-}
 
-.hours-row.is-today {
-  padding-inline: var(--space-3);
-  margin-inline: calc(var(--space-3) * -1);
-  border-radius: var(--radius-sm);
-  background: linear-gradient(90deg, var(--color-gold-soft), transparent);
-  border-bottom-color: transparent;
-}
 
-.hours-days {
-  display: inline-flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: var(--space-2);
-  font-weight: 600;
-  font-size: 0.95rem;
-}
 
-.is-today .hours-days {
-  color: var(--color-gold);
-}
 
-.today-tag {
-  padding: 0.1rem 0.5rem;
-  border-radius: var(--radius-pill);
-  background: var(--color-gold);
-  color: #140505;
-  font-size: 0.68rem;
-  font-weight: 800;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
 
-.hours-time {
-  margin-left: auto;
-  font-size: 0.92rem;
-  color: var(--color-text-dim);
-  font-variant-numeric: tabular-nums;
-}
 
-.hours-time.is-closed {
-  color: var(--color-red-bright);
-  font-weight: 600;
-}
 
-.panel-foot {
-  display: flex;
-  gap: var(--space-2);
-  margin-top: var(--space-4);
-  font-size: 0.82rem;
-  line-height: 1.5;
-  color: var(--color-text-mute);
-}
 
-.panel-foot :deep(svg) {
-  flex: none;
-  margin-top: 3px;
-}
 
 /* ---------- Good to know ---------- */
 
@@ -646,17 +408,6 @@ const reachCards = [
   }
 }
 
-@keyframes pulse {
-  0%,
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.45;
-    transform: scale(1.35);
-  }
-}
 
 /* ---------- Breakpoints ---------- */
 

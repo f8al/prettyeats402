@@ -36,35 +36,6 @@ export const socials = [
   },
 ]
 
-/**
- * Serving hours.
- *
- * `days` / `time` are what visitors read. `weekdays` / `opens` / `closes` are what
- * the "open right now" indicator on the contact page reads, so keep them in sync:
- *   weekdays — day numbers this row covers (0 = Sunday … 6 = Saturday)
- *   opens/closes — 24-hour local time, "HH:MM"
- * A row with `open: false` needs no opens/closes.
- */
-export const hours = [
-  {
-    days: 'Monday – Friday',
-    time: '11:00 AM – 7:00 PM',
-    open: true,
-    weekdays: [1, 2, 3, 4, 5],
-    opens: '11:00',
-    closes: '19:00',
-  },
-  {
-    days: 'Saturday',
-    time: '12:00 PM – 8:00 PM',
-    open: true,
-    weekdays: [6],
-    opens: '12:00',
-    closes: '20:00',
-  },
-  { days: 'Sunday', time: 'Closed', open: false, weekdays: [0] },
-]
-
 export const navLinks = [
   { label: 'Home', to: '/' },
   { label: 'Menu', to: '/menu' },

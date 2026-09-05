@@ -2,7 +2,7 @@
 import { onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { menu, menuNote } from '../data/menu'
-import { site, hours } from '../data/site'
+import { site } from '../data/site'
 import SocialIcon from '../components/SocialIcon.vue'
 import MenuItemCard from '../components/menu/MenuItemCard.vue'
 import logo from '../assets/images/logo.webp'
@@ -201,18 +201,6 @@ onBeforeUnmount(() => {
           </a>
         </div>
 
-        <div class="order-hours">
-          <p class="order-hours-label">
-            <SocialIcon name="clock" :size="16" />
-            Window hours
-          </p>
-          <ul role="list">
-            <li v-for="row in hours" :key="row.days" :class="{ 'is-closed': !row.open }">
-              <span>{{ row.days }}</span>
-              <span class="order-hours-time">{{ row.time }}</span>
-            </li>
-          </ul>
-        </div>
       </div>
     </section>
   </div>
@@ -481,51 +469,11 @@ onBeforeUnmount(() => {
   font-size: 1.05rem;
 }
 
-.order-hours {
-  max-width: 380px;
-  margin: var(--space-6) auto 0;
-  padding: var(--space-4);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  background: var(--color-surface);
-  text-align: left;
-}
 
-.order-hours-label {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-  margin-bottom: var(--space-3);
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--color-gold);
-}
 
-.order-hours li {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: var(--space-2);
-  padding-block: var(--space-2);
-  font-size: 0.9rem;
-  color: var(--color-text-dim);
-}
 
-.order-hours li + li {
-  border-top: 1px solid var(--color-border);
-}
 
-.order-hours-time {
-  font-weight: 700;
-  color: var(--color-text);
-}
 
-.order-hours .is-closed .order-hours-time {
-  color: var(--color-text-mute);
-  font-weight: 600;
-}
 
 /* ---------- Up and out ---------- */
 

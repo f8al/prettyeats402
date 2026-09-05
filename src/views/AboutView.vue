@@ -1,13 +1,9 @@
 <script setup>
-import { site, socials, hours } from '../data/site'
+import { site, socials } from '../data/site'
 import SocialIcon from '../components/SocialIcon.vue'
 import familyPhoto from '../assets/images/family.webp'
 import ownerTalking from '../assets/images/owner-cutout.webp'
 import ownerStanding from '../assets/images/owner-portrait.webp'
-
-// The footer already carries the full hours table, so the page only needs the
-// one human detail out of it: the day the truck doesn't roll.
-const restDay = hours.find((row) => !row.open)?.days ?? 'Sunday'
 
 const values = [
   {
@@ -44,7 +40,7 @@ const values = [
           </h1>
 
           <p class="lead rise d2">
-            Because six days a week, that’s exactly who’s in the truck. Pretty’s Eats is a
+            Because that’s exactly who’s in the truck. Pretty’s Eats is a
             Black-owned, family-run food truck in Omaha, Nebraska — loaded rice bowls and loaded
             baked potatoes, done our way. Hearty. Soulful. Made when you order it, not before.
           </p>
@@ -52,7 +48,7 @@ const values = [
           <ul class="fact-row rise d3">
             <li class="pill"><SocialIcon name="pin" :size="15" />{{ site.city }}</li>
             <li class="pill">Black-owned &amp; family-run</li>
-            <li class="pill"><SocialIcon name="clock" :size="15" />Open six days a week</li>
+            <li class="pill">Made fresh to order</li>
           </ul>
         </div>
 
@@ -175,7 +171,7 @@ const values = [
           <div class="prose">
             <p class="reveal">
               Red shirt, black apron, arms folded, truck behind him — you’ll know him on sight.
-              Shafeeq is in that window six days a week, and he calls this the most based food truck
+              Shafeeq is the one in that window, and he calls this the most based food truck
               in Omaha. Not as a joke. As a standard he has to cook up to every single service.
             </p>
             <p class="reveal">
@@ -207,8 +203,6 @@ const values = [
             {{ site.phone }}
           </a>
         </div>
-
-        <p class="cta-note reveal">Six days a week. {{ restDay }} we rest.</p>
 
         <div class="cta-social reveal">
           <p class="cta-social-label">Follow the truck</p>
@@ -597,14 +591,6 @@ const values = [
   min-height: 52px;
 }
 
-.cta-note {
-  margin-top: var(--space-5);
-  font-family: var(--font-display);
-  text-transform: uppercase;
-  font-size: clamp(1rem, 4.4vw, 1.2rem);
-  letter-spacing: 0.05em;
-  color: var(--color-text-mute);
-}
 
 .cta-social {
   margin-top: var(--space-7);

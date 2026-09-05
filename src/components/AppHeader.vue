@@ -102,7 +102,7 @@ onUnmounted(() => {
             <SocialIcon name="phone" :size="18" />
             {{ site.phone }}
           </a>
-          <p class="mobile-note">Omaha, NE · Mon–Fri 11a–7p · Sat 12p–8p</p>
+          <p class="mobile-note">Omaha, NE · Call ahead or order at the window</p>
         </div>
       </div>
     </Transition>
